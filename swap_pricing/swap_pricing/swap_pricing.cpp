@@ -1,12 +1,22 @@
 #include <ql/quantlib.hpp>
+#include <ql/settings.hpp>
 #include <boost/shared_ptr.hpp>
 
 int main() {
 	std::vector<QuantLib::Date> dates;
 	std::vector<QuantLib::DiscountFactor> discountFactor;
+	
+	QuantLib::Date valuation_date(31, QuantLib::Dec, 2016);
+	QuantLib::Settings::instance().evaluationDate() = valuation_date;
+	
+	dates.push_back(valuation_date);
+	discountFactor.push_back(1.0);
+	dates.push_back(QuantLib::Date(31, QuantLib::Dec, 2017));
+	discountFactor.push_back(0.99);
+	dates.push_back(QuantLib::Date(31, QuantLib::Dec, 2028));
+	discountFactor.push_back(0.80);
 
-
-
+	return 0;
 }
 
 
