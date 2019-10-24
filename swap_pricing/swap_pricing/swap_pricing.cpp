@@ -4,18 +4,32 @@
 
 int main() {
 	std::vector<QuantLib::Date> dates;
-	std::vector<QuantLib::DiscountFactor> discountFactor;
+	std::vector<QuantLib::DiscountFactor> discountFactors;
 	
 	QuantLib::Date valuation_date(31, QuantLib::Dec, 2016);
 	QuantLib::Settings::instance().evaluationDate() = valuation_date;
 	
 	dates.push_back(valuation_date);
-	discountFactor.push_back(1.0);
+	discountFactors.push_back(1.0);
 	dates.push_back(QuantLib::Date(31, QuantLib::Dec, 2017));
-	discountFactor.push_back(0.99);
+	discountFactors.push_back(0.99);
 	dates.push_back(QuantLib::Date(31, QuantLib::Dec, 2028));
-	discountFactor.push_back(0.80);
+	discountFactors.push_back(0.80);
 
+	boost::shared_ptr<QuantLib::YieldTermStructure> forwardCurve(new QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>(dates, discountFactors, QuantLib::Actual360()));
+	//const QuantLib::Date tmpDate = QuantLib::Date(11, QuantLib::Nov, 2019);
+	//const QuantLib::Compounding tmpCpd = QuantLib::Continuous;
+	//std::cout << (*forwardCurve).discount(tmpDate) << std::endl;
+	//QuantLib::InterestRate tmp = (*forwardCurve).zeroRate(tmpDate, QuantLib::Actual360(), tmpCpd, QuantLib::Annual, false);
+	//std::cout << tmp << std::endl;
+
+	discountFactors.pop_back(); discountFactors.pop_back();
+	discountFactors.push_back(0.999); discountFactors.push_back(0.89);
+	boost::shared_ptr<QuantLib::YieldTermStructure> oisCurve(new QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>(dates, discountFactors, QuantLib::Actual360()));
+
+	QuantLib::Handle<QuantLib::YieldTermStructure> forwardTermStructure(forwardCurve);
+	QuantLib::Handle<QuantLib::YieldTermStructure> discountingTermStructure(oisCurve);
+	
 	return 0;
 }
 
