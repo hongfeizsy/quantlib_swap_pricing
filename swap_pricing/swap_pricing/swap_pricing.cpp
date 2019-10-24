@@ -30,6 +30,8 @@ int main() {
 	QuantLib::Handle<QuantLib::YieldTermStructure> forwardTermStructure(forwardCurve);
 	QuantLib::Handle<QuantLib::YieldTermStructure> discountingTermStructure(oisCurve);
 	
+	//(**discountingTermStructure).
+
 	return 0;
 }
 
