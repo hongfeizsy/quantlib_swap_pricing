@@ -31,6 +31,13 @@ int main() {
 	QuantLib::Handle<QuantLib::YieldTermStructure> forwardTermStructure(forwardCurve);
 	QuantLib::Handle<QuantLib::YieldTermStructure> discountingTermStructure(oisCurve);
 	
+	QuantLib::Real nominal = 1000000.0;
+	QuantLib::Date previousResetDate(20, QuantLib::Nov, 2016);
+	QuantLib::Date maturity(20, QuantLib::Nov, 2026);
+	double spread = 0.02;
+	double fixRate = 0.04;
+	boost::shared_ptr<QuantLib::IborIndex> euribor(new QuantLib::Euribor(3 * QuantLib::Months, forwardTermStructure));
+
 	return 0;
 }
 
