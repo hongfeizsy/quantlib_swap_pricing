@@ -17,6 +17,7 @@ int main() {
 	discountFactors.push_back(0.80);
 
 	boost::shared_ptr<QuantLib::YieldTermStructure> forwardCurve(new QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>(dates, discountFactors, QuantLib::Actual360()));
+	//boost::shared_ptr<QuantLib::YieldTermStructure> tmpYieldTerm = boost::make_shared<QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>>(dates, discountFactors, QuantLib::Actual360());
 	//const QuantLib::Date tmpDate = QuantLib::Date(11, QuantLib::Nov, 2019);
 	//const QuantLib::Compounding tmpCpd = QuantLib::Continuous;
 	//std::cout << (*forwardCurve).discount(tmpDate) << std::endl;
@@ -30,6 +31,9 @@ int main() {
 	QuantLib::Handle<QuantLib::YieldTermStructure> forwardTermStructure(forwardCurve);
 	QuantLib::Handle<QuantLib::YieldTermStructure> discountingTermStructure(oisCurve);
 	
+	
+
+
 	return 0;
 }
 
