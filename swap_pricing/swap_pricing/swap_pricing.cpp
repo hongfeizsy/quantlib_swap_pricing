@@ -37,8 +37,9 @@ int main() {
 	double spread = 0.02;
 	double fixRate = 0.04;
 	boost::shared_ptr<QuantLib::IborIndex> euribor(new QuantLib::Euribor(3 * QuantLib::Months, forwardTermStructure));
-	boost::shared_ptr<QuantLib::IborIndex> tmp_euribor = boost::make_shared<QuantLib::Euribor>(3 * QuantLib::Months, forwardTermStructure);
-	
+	//boost::shared_ptr<QuantLib::IborIndex> tmp_euribor = boost::make_shared<QuantLib::Euribor>(3 * QuantLib::Months, forwardTermStructure);
+	euribor->addFixing(previousResetDate, 0.01, true);
+
 	return 0;
 }
 
