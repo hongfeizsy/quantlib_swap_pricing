@@ -2,6 +2,8 @@
 #include <ql/settings.hpp>
 #include <boost/shared_ptr.hpp>
 
+#pragma warning(disable: 4819)
+
 int main() {
 	std::vector<QuantLib::Date> dates;
 	std::vector<QuantLib::DiscountFactor> discountFactors;
@@ -38,7 +40,11 @@ int main() {
 	double fixRate = 0.04;
 	boost::shared_ptr<QuantLib::IborIndex> euribor(new QuantLib::Euribor(3 * QuantLib::Months, forwardTermStructure));
 	//boost::shared_ptr<QuantLib::IborIndex> tmp_euribor = boost::make_shared<QuantLib::Euribor>(3 * QuantLib::Months, forwardTermStructure);
-	euribor->addFixing(previousResetDate, 0.01, true);
+	euribor->addFixing(euribor->fixingDate(previousResetDate), 0.01, true);   // I do not follow what the point of InterestRateIndex::fixingDate or Index::addFixing
+	
+	QuantLib::VanillaSwap::Type swapType = QuantLib::VanillaSwap::Payer;
+	QuantLib::Schedule fixedSchedule(previousResetDate, maturity, 1 * QuantLib::Years, QuantLib::TARGET(), 
+		QuantLib::ModifiedFollowing, QuantLib::ModifiedFollowing, QuantLib::DateGeneration::Forward, false);
 
 	return 0;
 }
