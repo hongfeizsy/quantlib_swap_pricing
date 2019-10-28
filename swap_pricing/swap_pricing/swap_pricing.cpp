@@ -45,6 +45,10 @@ int main() {
 	QuantLib::VanillaSwap::Type swapType = QuantLib::VanillaSwap::Payer;
 	QuantLib::Schedule fixedSchedule(previousResetDate, maturity, 1 * QuantLib::Years, QuantLib::TARGET(), 
 		QuantLib::ModifiedFollowing, QuantLib::ModifiedFollowing, QuantLib::DateGeneration::Forward, false);
+	std::vector<QuantLib::Date> tmp = fixedSchedule.dates();
+	for (auto i = tmp.begin(); i != tmp.end(); i++) {
+		std::cout << *i << std::endl;
+	}
 
 	return 0;
 }
