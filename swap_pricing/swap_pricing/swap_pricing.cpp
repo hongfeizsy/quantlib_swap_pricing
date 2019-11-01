@@ -35,7 +35,7 @@ int main() {
 	
 	QuantLib::Real nominal = 1000000.0;
 	QuantLib::Date previousResetDate(20, QuantLib::Nov, 2016);
-	QuantLib::Date maturity(20, QuantLib::Nov, 2026);
+	QuantLib::Date maturity(7, QuantLib::Nov, 2026);
 	double spread = 0.02;
 	double fixRate = 0.04;
 	boost::shared_ptr<QuantLib::IborIndex> euribor(new QuantLib::Euribor(3 * QuantLib::Months, forwardTermStructure));
@@ -45,11 +45,18 @@ int main() {
 	QuantLib::VanillaSwap::Type swapType = QuantLib::VanillaSwap::Payer;
 	QuantLib::Schedule fixedSchedule(previousResetDate, maturity, 1 * QuantLib::Years, QuantLib::TARGET(), 
 		QuantLib::ModifiedFollowing, QuantLib::ModifiedFollowing, QuantLib::DateGeneration::Forward, false);
-	std::vector<QuantLib::Date> tmp = fixedSchedule.dates();
-	for (auto i = tmp.begin(); i != tmp.end(); i++) {
-		std::cout << *i << std::endl;
-	}
+	//std::vector<QuantLib::Date> tmp = fixedSchedule.dates();
+	//for (std::vector<QuantLib::Date>::iterator i = tmp.begin(); i != tmp.end(); i++) {
+	//	std::cout << *i << std::endl;
+	//}
 
+	QuantLib::Schedule floatSchedule(previousResetDate, maturity, 3 * QuantLib::Months, QuantLib::TARGET(),
+		QuantLib::ModifiedFollowing, QuantLib::ModifiedFollowing, QuantLib::DateGeneration::Forward, false);
+	//std::vector<QuantLib::Date> tmp = floatSchedule.dates();
+	//for (int i = 0; i < tmp.size(); i++) {
+	//	std::cout << tmp[i] << std::endl;
+	//}
+	
 	return 0;
 }
 
