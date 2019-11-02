@@ -57,6 +57,11 @@ int main() {
 	//	std::cout << tmp[i] << std::endl;
 	//}
 	
+	QuantLib::VanillaSwap swap(QuantLib::VanillaSwap::Payer, nominal, fixedSchedule, fixRate, QuantLib::Thirty360(), floatSchedule, euribor, spread, QuantLib::Actual360());
+	boost::shared_ptr<QuantLib::PricingEngine> swapEngine(new QuantLib::DiscountingSwapEngine(discountingTermStructure));
+	swap.setPricingEngine(swapEngine);
+	std::cout << swap.NPV() << std::endl;
+
 	return 0;
 }
 
