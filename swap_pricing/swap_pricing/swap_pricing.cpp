@@ -18,7 +18,8 @@ int main() {
 	dates.push_back(QuantLib::Date(31, QuantLib::Dec, 2028));
 	discountFactors.push_back(0.80);
 
-	boost::shared_ptr<QuantLib::YieldTermStructure> forwardCurve(new QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>(dates, discountFactors, QuantLib::Actual360()));
+	boost::shared_ptr<QuantLib::YieldTermStructure> forwardCurve(new QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>
+		(dates, discountFactors, QuantLib::Actual360()));
 	//boost::shared_ptr<QuantLib::YieldTermStructure> tmpYieldTerm = boost::make_shared<QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>>(dates, discountFactors, QuantLib::Actual360());
 	//const QuantLib::Date tmpDate = QuantLib::Date(11, QuantLib::Nov, 2019);
 	//const QuantLib::Compounding tmpCpd = QuantLib::Continuous;
