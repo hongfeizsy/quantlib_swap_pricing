@@ -30,7 +30,7 @@ int main() {
 	discountFactors.pop_back(); discountFactors.pop_back();
 	discountFactors.push_back(0.999); discountFactors.push_back(0.89);
 	boost::shared_ptr<QuantLib::YieldTermStructure> oisCurve(new QuantLib::InterpolatedDiscountCurve<QuantLib::LogLinear>(dates, discountFactors, QuantLib::Actual360()));
-
+	//std::cout << oisCurve->forwardRate(dates[0], 24 * QuantLib::Months, QuantLib::Actual360(), QuantLib::Simple).rate() << std::endl;
 	QuantLib::Handle<QuantLib::YieldTermStructure> forwardTermStructure(forwardCurve);
 	QuantLib::Handle<QuantLib::YieldTermStructure> discountingTermStructure(oisCurve);
 	
@@ -40,9 +40,11 @@ int main() {
 	double spread = 0.02;
 	double fixRate = 0.04;
 	boost::shared_ptr<QuantLib::IborIndex> euribor(new QuantLib::Euribor(3 * QuantLib::Months, forwardTermStructure));
+	/*boost::shared_ptr<QuantLib::IborIndex> euribor(new QuantLib::Euribor(3 * QuantLib::Months, discountingTermStructure));*/
 	//boost::shared_ptr<QuantLib::IborIndex> tmp_euribor = boost::make_shared<QuantLib::Euribor>(3 * QuantLib::Months, forwardTermStructure);
 	euribor->addFixing(euribor->fixingDate(previousResetDate), 0.01, true);   // I do not follow what the point of InterestRateIndex::fixingDate or Index::addFixing
-	
+	//std::cout << euribor->name() << std::endl;
+
 	QuantLib::VanillaSwap::Type swapType = QuantLib::VanillaSwap::Payer;
 	QuantLib::Schedule fixedSchedule(previousResetDate, maturity, 1 * QuantLib::Years, QuantLib::TARGET(), 
 		QuantLib::ModifiedFollowing, QuantLib::ModifiedFollowing, QuantLib::DateGeneration::Forward, false);
